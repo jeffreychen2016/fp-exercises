@@ -31,19 +31,33 @@ const removeSalary = R.dissocPath(["employee_salary"]);
 // compose all pure computation seperate from the `workflow`
 // so, i do not have to crazy stuff like map(map())
 const extractData = C.compose(
-  // C.tap((x) => console.log(x.inspect())),
+  // return Async a
+  C.maybeToAsync("No employee found..."),
+  // return Just a
   C.map(removeSalary),
-  // flatten `Just Just object` to `Just object`
+  // return Just a (flatten `Just Just a` to `Just a`)
   C.chain(safeFindEmployee),
+  //   C.tap((x) => {
+  //     console.log(x.inspect());
+  //   }),
+  // return Just a
   safeGetDataArray
 );
 
 // saveToFile :: ((*, NodeCallback) -> ()) -> (* -> Async e a)
 const saveToFile = C.nAry(2, C.Async.fromNode(fs.writeFile));
+const saveStringifiedResultToFile = C.compose(
+  saveToFile("./test"),
+  JSON.stringify
+);
 
 const workflow = C.compose(
-  C.chain(saveToFile("./test")),
-  C.map(extractData),
+  C.chain(saveStringifiedResultToFile),
+  // return Async a (flatten Async Async a)
+  // do not use map here. because the extract data returns Async
+  // if use map, it will return Async Async a
+  C.chain(extractData),
+  // return Async a
   httpGetEmployees
 );
 
