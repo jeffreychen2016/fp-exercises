@@ -11,12 +11,12 @@ const { tagged, taggedSum } = require("daggy");
 // console.log(Coord(1, 2, 3).move(1, 1, 1));
 
 // // -------------------------------------------
-// // const Bool = taggedSum("Bool", {
-// //   True: ["a", "x"],
-// //   False: [],
-// // });
+const Bool = taggedSum("Bool", {
+  True: [],
+  False: [],
+});
 
-// // console.log(Bool.True("a", true));
+console.log(Bool.True.is(Bool.True));
 
 // // creating mutilple constructors (Square and Circle) for Shape type
 // const Shape = taggedSum("Shape", {
