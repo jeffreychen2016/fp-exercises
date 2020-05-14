@@ -34,3 +34,43 @@ console.log(one.lte(one));
 
 // 3. a.lte(b) && b.lte(c) === a.lte(c)
 console.log(one.lte(two) && two.lte(three) && one.lte(three));
+
+// ---------------------------------------
+// Bubble Sort
+// sometimes referred to as sinking sort,
+// is a simple sorting algorithm that repeatedly steps through the list,
+// compares adjacent elements and swaps them if they are in the wrong order
+// ---------------------------------------
+
+// bubbleSort :: Ord a => [a] ~> [a] -> [a]
+const bubbleSort = (xs) => {
+  let swap;
+  let n = xs.length - 1;
+  do {
+    swap = false;
+    for (let i = 0; i < n; i++) {
+      if (!xs[i].lte(xs[i + 1])) {
+        let temp = xs[i];
+        xs[i] = xs[i + 1];
+        xs[i + 1] = temp;
+        swap = true;
+      }
+    }
+    n--;
+  } while (swap);
+  return xs;
+};
+
+console.log(bubbleSort([three, two, one])); // [one, two, three]
+console.log(bubbleSort([three, two, one, three])); // [one, two, three, three]
+
+// infinite loop....
+// const test = [1, 2, 3];
+// for (var i = 0; i < test.length; i++) {
+//   console.log(i);
+//   const temp2 = test[i];
+//   test[i] = test[i + 1];
+//   test[i + i] = temp2;
+// }
+
+// console.log(test);
