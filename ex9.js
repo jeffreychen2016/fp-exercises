@@ -13,13 +13,13 @@ const customNumber = tagged("CustomNumber", ["value"]);
 
 // make the customNumber a Setoid
 customNumber.prototype.equals = function (that) {
-  return this === that;
+  return this.value === that.value;
 };
 
 // make the Setoid a Ord
 // lte :: Ord a => a ~> a -> Bool
 customNumber.prototype.lte = function (that) {
-  return this <= that;
+  return this.value <= that.value;
 };
 
 const one = customNumber(1);
