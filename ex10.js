@@ -4,6 +4,7 @@
 // how the concat() works is upto you.
 // for numbers, it can be `+`, '*' or others.
 // for array, it can be `join` or whatever
+// the key is that, the concat() method must return the same type
 // laws:
 // a.concat(b).concat(c) === a.concat(b.concat(c))
 // ---------------------------------------
